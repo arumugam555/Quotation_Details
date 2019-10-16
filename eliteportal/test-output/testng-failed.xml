@@ -7,6 +7,9 @@
         <methods>
           <include name="beforeTest"/>
           <include name="search_res_date"/>
+          <include name="loginpage"/>
+          <include name="quotation_details"/>
+          <include name="Search_result_failure"/>
         </methods>
       </class> <!-- eliteportal.Quotation_Response -->
     </classes>

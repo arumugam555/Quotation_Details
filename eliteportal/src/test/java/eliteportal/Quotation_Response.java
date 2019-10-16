@@ -28,8 +28,6 @@ public class Quotation_Response {
 	  @BeforeTest
 	  public void beforeTest() {
 		  
-		  //ChromeOptions chromeOptions= new ChromeOptions();
-		  //chromeOptions.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
 		  System.setProperty("webdriver.chrome.driver", "E:\\Maven\\chromedriver.exe");
 		  driver=new ChromeDriver();
 		  driver.get("https://www.kobster.website/elite-auth");
@@ -56,7 +54,6 @@ public class Quotation_Response {
 		  WebElement searchbox=driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[2]/div/div[2]/div/div/table/thead/tr/th[7]/input"));
 		  searchbox.sendKeys("Glass Board Marker");
 		  
-		  //new Actions(driver).moveToElement(searchbox).click().perform();
 		  
 		  Thread.sleep(2000);
 		  
@@ -89,7 +86,7 @@ public class Quotation_Response {
 		  }
 		  
 	  }
-	 // @Test(priority = 1)
+	 @Test(priority = 1)
 	  public void Search_result_failure() throws InterruptedException, AWTException {
           
 		  Thread.sleep(2000);
@@ -123,7 +120,7 @@ public class Quotation_Response {
 		  }
 		
 	  }
-	  @Test(priority = 1)
+	  @Test(priority = 2)
 	  public void search_res_date() throws InterruptedException, AWTException, ParseException {
 		  
 		  
@@ -220,6 +217,88 @@ public class Quotation_Response {
 					  System.out.println("Ref Num of Awating Quotation="+ref_num2.getText());
 		      } 			  
 		  }		  		  
+	  }
+	  
+	  @Test(priority = 3)
+	  public void quotation_details() throws InterruptedException, AWTException {
+		  
+		   Thread.sleep(2000);
+		   Robot robot = new Robot();
+		   robot.keyPress(KeyEvent.VK_PAGE_UP);
+		   robot.keyRelease(KeyEvent.VK_PAGE_UP);
+		   Thread.sleep(2000);
+		   
+		   WebElement action_btn= driver.findElement(By.xpath("//*[@id=\"156_id\"]/td[7]"));
+		   ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", action_btn);
+		   
+
+			  WebElement pro_name=driver.findElement(By.xpath("//*[@id=\"156_id\"]/td[3]"));
+			  String product_name=pro_name.getText();
+			  
+			  WebElement Ref_no=driver.findElement(By.xpath("//*[@id=\"156_id\"]/td[1]"));
+			  String reference_no=Ref_no.getText();
+			  
+			  WebElement pro_qty=driver.findElement(By.xpath("//*[@id=\"156_id\"]/td[4]"));
+			  String product_qty=pro_qty.getText();
+			  
+			  WebElement pro_dead_date=driver.findElement(By.xpath("//*[@id=\"156_id\"]/td[5]"));
+			  String product_date=pro_dead_date.getText();
+			  
+			  WebElement pro_pay=driver.findElement(By.xpath("//*[@id=\"156_id\"]/td[6]"));
+			  String product_payment=pro_pay.getText();
+			  
+			  System.out.println(product_name);
+			  System.out.println(reference_no);
+			  System.out.println(product_qty);
+			  System.out.println(product_date);
+			  System.out.println(product_payment);
+			  
+			  WebElement quote_button=driver.findElement(By.xpath("//*[@id=\"156_id\"]/td[7]/button"));
+			  quote_button.click();	 
+			  Thread.sleep(5000);
+			  ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+			  driver.switchTo().window(tabs2.get(1));
+			  Thread.sleep(3000);
+			  
+			 // driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div/div[2]/div/div[2]/div/div/div[2]/table/tr[1]/td[5]/div/button[1]")).click();
+			  
+			  String prodet_name=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div/div[2]/div[1]/p[1]")).getText();
+			  String prodet_refno=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div/div[2]/div[1]/p[2]")).getText();
+			  String prodet_qty=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[1]/p[2]")).getText();
+			  String prodet_date=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[2]/p[2]")).getText();
+			  String prodet_payment=driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[3]/p[2]")).getText();
+			  
+			  
+			  if(product_name.equals(prodet_name)) {
+				    System.out.println("Product name is Matching");
+				} else {
+				    System.out.println("Product name is not Matching");
+				}
+			  
+			  if(reference_no.equals(prodet_refno)) {
+				   System.out.println("Reference Number is Matching");
+				} else {
+					System.out.println("Reference Number is not Matching");
+				}
+			  
+			  if(product_qty.equals(prodet_qty)) {
+				   System.out.println("Quantity is Matching");
+				} else {
+					System.out.println("Quantity is not Matching");
+				}
+			  
+			  if(product_date.equals(prodet_date)) {
+				   System.out.println("Dead Line is Matching");
+				} else {
+					System.out.println("Dead Line is not Matching");
+				}
+			  
+			  if(product_payment.equals(prodet_payment)) {
+				   System.out.println("Payment Method is Matching");
+				} else {
+					System.out.println("Payment Method is not Matching");
+				}
+			
 	  }
 	
 }
